@@ -1,33 +1,34 @@
-cask "snow-shot" do
+cask "snow-shot-mini" do
   version "1.1.9"
-  sha256 "a1fc085ff7f12d19fd1e9968521046736ffbbb4acdcb65fa3b8fa70bb7f4b802"
+  sha256 "5fd487e74a68fbcabdb1126bb52068f04c07a511c56359b176d08ffcefef4ada"
 
-  url "https://github.com/mg-chao/snow-apps/releases/download/v#{version}_snow-shot/snow-shot-#{version}-macos-arm64-homebrew.tar.gz"
-  name "Snow Shot"
+  url "https://github.com/mg-chao/snow-apps/releases/download/v#{version}_snow-shot/snow-shot-mini-#{version}-macos-arm64-homebrew.tar.gz"
+  name "Snow Shot Mini"
   desc "Screenshot and screen recording application"
   homepage "https://snowshot.top/"
 
   depends_on arch: :arm64
   depends_on macos: :sequoia
 
-  app "Snow Shot.app"
+  app "Snow Shot Mini.app"
 
   # Third-party Ruby hooks preserve the desktop user's HOME and Keychain access.
   preflight do
     system_command "/bin/bash",
                    args:         [staged_path.join("prepare-snow-shot-homebrew.sh"),
-                                  staged_path.join("snow-shot-#{version}-macos-arm64.dmg"),
-                                  staged_path.join("Snow Shot.app")],
+                                  staged_path.join("snow-shot-mini-#{version}-macos-arm64.dmg"),
+                                  staged_path.join("Snow Shot Mini.app"),
+                                  "mini"],
                    must_succeed: true,
                    print_stdout: true,
                    print_stderr: true
   end
 
   caveats <<~EOS
-    Snow Shot reuses a signing identity in your login Keychain. The first install
+    Snow Shot Mini reuses a signing identity in your login Keychain. The first install
     may request Keychain access. Grant Screen Recording and Accessibility when
     macOS requests them. Local signing does not provide Apple notarization.
-    Keep ~/Library/Application Support/Snow Shot/Installer and its Keychain
+    Keep ~/Library/Application Support/Snow Shot Mini/Installer and its Keychain
     identity across upgrades and reinstalls. Use the same installing account.
   EOS
 end
