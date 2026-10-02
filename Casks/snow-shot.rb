@@ -1,6 +1,6 @@
 cask "snow-shot" do
-  version "1.2.0"
-  sha256 "3c8f6d70910b37d2a19b28fc1e06333910457aa1ed87300a519c7a72deb16758"
+  version "1.2.1"
+  sha256 "3c0bc22e70e86d7854040dd2e855e4873912e4bb2209a636a22f4eee0e8396bc"
 
   url "https://github.com/mg-chao/snow-apps/releases/download/v#{version}_snow-shot/snow-shot-#{version}-macos-arm64-homebrew.tar.gz"
   name "Snow Shot"
