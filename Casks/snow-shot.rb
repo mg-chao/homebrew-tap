@@ -1,13 +1,15 @@
 cask "snow-shot" do
-  version "1.2.2"
-  sha256 "982722ce39ac3509f8fe65a76f2f4320310610865110bf6745beaad63b5fc253"
+  arch arm: "arm64", intel: "x86_64"
 
-  url "https://github.com/mg-chao/snow-apps/releases/download/v#{version}_snow-shot/snow-shot-#{version}-macos-arm64-homebrew.tar.gz"
+  version "1.2.3"
+  sha256 arm:   "2fdf3c105dbf6a91ffb3499cd8d67e16ec225d927d99acda2fe5681632b0697e",
+         intel: "5086b59d4095dfa19b00a3d7d7e22ab0f6c954e7d641a27961c117a8c11f1d78"
+
+  url "https://github.com/mg-chao/snow-apps/releases/download/v#{version}_snow-shot/snow-shot-#{version}-macos-#{arch}-homebrew.tar.gz"
   name "Snow Shot"
   desc "Screenshot and screen recording application"
   homepage "https://snowshot.top/"
 
-  depends_on arch: :arm64
   depends_on macos: :sequoia
 
   app "Snow Shot.app"
@@ -16,7 +18,7 @@ cask "snow-shot" do
   preflight do
     system_command "/bin/bash",
                    args:         [staged_path.join("prepare-snow-shot-homebrew.sh"),
-                                  staged_path.join("snow-shot-#{version}-macos-arm64.dmg"),
+                                  staged_path.join("snow-shot-#{version}-macos-#{arch}.dmg"),
                                   staged_path.join("Snow Shot.app")],
                    must_succeed: true,
                    print_stdout: true,
