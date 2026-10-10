@@ -38,7 +38,8 @@ def patch(text: str, filename: str) -> str:
         raise ValueError(f"{filename}: preparation arguments changed; manual review required")
     if '  installer ' in text or '  uninstall ' in text:
         raise ValueError(f"{filename}: existing installer/uninstall needs manual review")
-    lines = options.splitlines()
+    # Installer forces print_stdout: true itself; explicitly passing it emits an error.
+    lines = [line for line in options.splitlines() if 'print_stdout:' not in line]
     lines = [line[15:] for line in lines]
     lines[-1] += ','
     replacement = (
