@@ -33,6 +33,7 @@ class MigrationTests(unittest.TestCase):
         self.assertIn('installer script:', result)
         self.assertIn('uninstall quit: "com.snowshot.snow_shot"', result)
         self.assertNotIn('preflight do', result)
+        self.assertNotIn('print_stdout:', result)
         self.assertEqual(patch(result, 'snow-shot.rb'), result)
 
     def test_mini_keeps_edition_and_identity(self):
