@@ -1,0 +1,39 @@
+name: Sync upstream and repair casks
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.repository == 'cyruss648/homebrew-tap'
+    runs-on: macos-15
+    timeout-minutes: 20
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: '1'
+      HOMEBREW_NO_ANALYTICS: '1'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Prepare upstream merge and repaired branch
+        run: bash scripts/sync_upstream.sh
+      - name: Check migration rules
+        run: python3 -m unittest discover -s scripts -p 'test_*.py' -v
+      - name: Validate casks with Homebrew
+        run: |
+          for cask in Casks/*.rb; do ruby -c "$cask"; done
+          brew tap --custom-remote cyruss648/tap "$GITHUB_WORKSPACE"
+          brew readall --arch=all cyruss648/tap
+          brew audit --cask --tap=cyruss648/tap --except=hosting_with_livecheck
+      - name: Publish both validated branches without rewriting history
+        run: git push --atomic origin sync-main:main sync-patch:patch-1
