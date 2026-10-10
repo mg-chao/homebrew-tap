@@ -20,7 +20,6 @@ cask "snow-shot-mini" do
                    staged_path.join("Snow Shot Mini.app"),
                    "mini"],
     must_succeed: true,
-    print_stdout: true,
     print_stderr: true,
   }
 

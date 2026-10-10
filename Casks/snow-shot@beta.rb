@@ -20,7 +20,6 @@ cask "snow-shot@beta" do
                    staged_path.join("snow-shot-#{version}-macos-arm64.dmg"),
                    staged_path.join("Snow Shot.app")],
     must_succeed: true,
-    print_stdout: true,
     print_stderr: true,
   }
 
