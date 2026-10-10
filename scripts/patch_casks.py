@@ -51,6 +51,7 @@ def patch(text: str, filename: str) -> str:
         f'  uninstall quit: "{IDENTITIES[filename]}"\n'
     )
     result = text[:match.start()] + replacement + text[match.end():]
+    result = result.replace('app"\n\n  # Installer', 'app"\n  # Installer')
     if re.search(r'^  (?:preflight|postflight|uninstall_preflight|uninstall_postflight) do$', result, re.MULTILINE):
         raise ValueError(f"{filename}: unexpected deprecated hook")
     return result

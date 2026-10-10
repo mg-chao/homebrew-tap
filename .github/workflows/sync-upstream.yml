@@ -36,6 +36,7 @@ jobs:
           brew tap --custom-remote cyruss648/tap "$GITHUB_WORKSPACE"
           brew trust cyruss648/tap
           brew readall --arch=all cyruss648/tap
+          brew style Casks/*.rb
           brew audit --cask --tap=cyruss648/tap
       - name: Publish both validated branches without rewriting history
         run: git push --atomic origin sync-main:main sync-patch:patch-1

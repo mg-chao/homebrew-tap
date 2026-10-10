@@ -13,7 +13,6 @@ cask "snow-shot" do
   depends_on macos: :sequoia
 
   app "Snow Shot.app"
-
   # Installer scripts run before app artifacts and preserve HOME and Keychain access.
   installer script: {
     executable:   "/bin/bash",
