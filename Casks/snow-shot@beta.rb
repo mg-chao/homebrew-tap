@@ -12,17 +12,18 @@ cask "snow-shot@beta" do
   depends_on macos: :sequoia
 
   app "Snow Shot.app"
+  # Installer scripts run before app artifacts and preserve HOME and Keychain access.
+  installer script: {
+    executable:   "/bin/bash",
+    args:         [staged_path.join("prepare-snow-shot-homebrew.sh"),
+                   staged_path.join("snow-shot-#{version}-macos-arm64.dmg"),
+                   staged_path.join("Snow Shot.app")],
+    must_succeed: true,
+    print_stderr: true,
+  }
 
-  # Third-party Ruby hooks preserve the desktop user's HOME and Keychain access.
-  preflight do
-    system_command "/bin/bash",
-                   args:         [staged_path.join("prepare-snow-shot-homebrew.sh"),
-                                  staged_path.join("snow-shot-#{version}-macos-arm64.dmg"),
-                                  staged_path.join("Snow Shot.app")],
-                   must_succeed: true,
-                   print_stdout: true,
-                   print_stderr: true
-  end
+  # Homebrew removes the app; retain the signing identity and user data.
+  uninstall quit: "com.snowshot.snow_shot"
 
   caveats <<~EOS
     Snow Shot reuses a signing identity in your login Keychain. The first install
