@@ -1,15 +1,13 @@
 cask "snow-shot" do
-  arch arm: "arm64", intel: "x86_64"
+  version "1.4.3"
+  sha256 "2d5af4802e14745292e47a8367ba7e72c098c5eb43dc52b1bbcfff85dc0c57fc"
 
-  version "1.4.2"
-  sha256 arm:   "bbb99f6c0a4d8fe38d76b156025f576142f3591ba07a4c12cfc158a716eb1e12",
-         intel: "9d2f7447423d737e8d4a2565d628ba4c1f63f3db1517996c1a31a7a21d50957b"
-
-  url "https://github.com/mg-chao/snow-apps/releases/download/v#{version}_snow-shot/snow-shot-#{version}-macos-#{arch}-homebrew.tar.gz"
+  url "https://github.com/mg-chao/snow-apps/releases/download/v#{version}_snow-shot/snow-shot-#{version}-macos-x86_64-homebrew.tar.gz"
   name "Snow Shot"
   desc "Screenshot and screen recording application"
   homepage "https://snowshot.top/"
 
+  depends_on arch: :x86_64
   depends_on macos: :sequoia
 
   app "Snow Shot.app"
@@ -17,7 +15,7 @@ cask "snow-shot" do
   installer script: {
     executable:   "/bin/bash",
     args:         [staged_path.join("prepare-snow-shot-homebrew.sh"),
-                   staged_path.join("snow-shot-#{version}-macos-#{arch}.dmg"),
+                   staged_path.join("snow-shot-#{version}-macos-x86_64.dmg"),
                    staged_path.join("Snow Shot.app")],
     must_succeed: true,
     sudo:         false,
