@@ -1,11 +1,11 @@
 cask "snow-shot" do
   arch arm: "arm64", intel: "x86_64"
 
-  version "1.5.2"
-  sha256 arm:   "a4450b5766a922a28815ce2004d1646e29c1256ebc7aa7affef7500c060980c2",
-         intel: "706471ed9cf0c39fe9f1d90407c49c3ab1575a8b299b51ed8f7c41223144a3c8"
+  version "1.5.3"
+  sha256 arm:   "7ea7d8225d20afed4cd0659079b385f6cd703fd5d77c19be6fe997628fdcacd8",
+         intel: "976412fb78e5f6d80b45f289cabed6af0e9311f00decfd3bec69349151573272"
 
-  url "https://github.com/mg-chao/snow-apps/releases/download/v#{version}_snow-shot/snow-shot-#{version}-macos-#{arch}-homebrew.tar.gz"
+  url "https://github.com/mg-chao/snow-shot/releases/download/v#{version}_snow-shot/snow-shot-#{version}-macos-#{arch}-homebrew.tar.gz"
   name "Snow Shot"
   desc "Screenshot and screen recording application"
   homepage "https://snowshot.top/"

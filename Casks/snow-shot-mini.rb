@@ -1,8 +1,8 @@
 cask "snow-shot-mini" do
-  version "1.5.2"
-  sha256 "a124f0ebc254666c2f655921936fa58ba13fe3599903db8483bda1cc7f07f0f1"
+  version "1.5.3"
+  sha256 "c38f56c0df66213132aa325ad239be83bdef4963c1814b388c00a4a0fcd676e2"
 
-  url "https://github.com/mg-chao/snow-apps/releases/download/v#{version}_snow-shot/snow-shot-mini-#{version}-macos-arm64-homebrew.tar.gz"
+  url "https://github.com/mg-chao/snow-shot/releases/download/v#{version}_snow-shot/snow-shot-mini-#{version}-macos-arm64-homebrew.tar.gz"
   name "Snow Shot Mini"
   desc "Screenshot and screen recording application"
   homepage "https://snowshot.top/"
