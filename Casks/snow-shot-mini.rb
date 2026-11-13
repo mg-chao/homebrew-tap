@@ -1,6 +1,6 @@
 cask "snow-shot-mini" do
-  version "1.5.6"
-  sha256 "e669d2e72378ac27f81607bb1491815390c4b1021072c870492b136694e781c0"
+  version "1.5.7"
+  sha256 "66b605e508d7ee1b87e54cf6f6893c793bedf00edc57f57107b6183fe9f493ae"
 
   url "https://github.com/mg-chao/snow-shot/releases/download/v#{version}_snow-shot/snow-shot-mini-#{version}-macos-arm64-homebrew.tar.gz"
   name "Snow Shot Mini"
