@@ -1,9 +1,9 @@
 cask "snow-shot" do
   arch arm: "arm64", intel: "x86_64"
 
-  version "1.5.7"
-  sha256 arm:   "a26aefaf4004e27799161fa5bfaa44961ff18889e4b432459096d8704e7ecb7c",
-         intel: "014f840fdd3bbf4c25d75b5474727a49c4b8d8f454a49a28a2db396f67c25654"
+  version "1.5.8"
+  sha256 arm:   "1047ec51053bd3392f37e17d7725cceeb30b898690422006f00fd68661f8a240",
+         intel: "b2ad1d7f591c4301074387bab53d4711c5e251dfa3f606a65e149a1a1f78754a"
 
   url "https://github.com/mg-chao/snow-shot/releases/download/v#{version}_snow-shot/snow-shot-#{version}-macos-#{arch}-homebrew.tar.gz"
   name "Snow Shot"
