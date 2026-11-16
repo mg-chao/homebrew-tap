@@ -1,9 +1,9 @@
 cask "snow-shot" do
   arch arm: "arm64", intel: "x86_64"
 
-  version "1.5.8"
-  sha256 arm:   "1047ec51053bd3392f37e17d7725cceeb30b898690422006f00fd68661f8a240",
-         intel: "b2ad1d7f591c4301074387bab53d4711c5e251dfa3f606a65e149a1a1f78754a"
+  version "1.5.9"
+  sha256 arm:   "4d8bff799d1eb669815f0492fb9966b099beeb40f50256a2f1f04f5f01ae85bb",
+         intel: "3caad3e93fb0c1edb9ce99e4adbf0d5ee11d9428ddd84849860f0b3026a938dc"
 
   url "https://github.com/mg-chao/snow-shot/releases/download/v#{version}_snow-shot/snow-shot-#{version}-macos-#{arch}-homebrew.tar.gz"
   name "Snow Shot"
@@ -13,7 +13,7 @@ cask "snow-shot" do
   depends_on macos: :sequoia
 
   app "Snow Shot.app"
-  # Vendor installers preserve HOME and Keychain access; flight steps isolate HOME.
+  # Verify the publisher signature before Homebrew places the unchanged app.
   installer script: {
     executable:   "/bin/bash",
     args:         [staged_path.join("prepare-snow-shot-homebrew.sh"),
@@ -25,7 +25,7 @@ cask "snow-shot" do
   }
 
   # Remove any prepared copy; the app artifact removes the installed app.
-  # Keep the installing account's persistent signing identity and state.
+  # Keep user data and any legacy installer state.
   uninstall script: {
     executable: "/bin/rm",
     args:       ["-rf", "--", "#{staged_path}/Snow Shot.app"],
@@ -33,10 +33,10 @@ cask "snow-shot" do
   }
 
   caveats <<~EOS
-    Snow Shot reuses a signing identity in your login Keychain. The first install
-    may request Keychain access. Grant Screen Recording and Accessibility when
-    macOS requests them. Local signing does not provide Apple notarization.
-    Keep ~/Library/Application Support/Snow Shot/Installer and its Keychain
-    identity across upgrades and reinstalls. Use the same installing account.
+    Snow Shot preserves the project signature shared by DMG and script installs.
+    No local signing key or Keychain access is needed. First installation or
+    migration from older ad-hoc/local signatures may require granting Screen
+    Recording and Accessibility again. Self-signing is not Apple notarization.
+    Use installers from the current release; older scripts re-sign applications.
   EOS
 end

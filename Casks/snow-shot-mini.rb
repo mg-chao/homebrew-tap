@@ -1,6 +1,6 @@
 cask "snow-shot-mini" do
-  version "1.5.8"
-  sha256 "ea029669edf2e556676a41129ce3ce290f1e7584a7755460f15cda29967149e6"
+  version "1.5.9"
+  sha256 "26d6ca29477ee8cf947b1326fc9ae720b4461f94325fc303fa8f89e0e6af676e"
 
   url "https://github.com/mg-chao/snow-shot/releases/download/v#{version}_snow-shot/snow-shot-mini-#{version}-macos-arm64-homebrew.tar.gz"
   name "Snow Shot Mini"
@@ -11,7 +11,7 @@ cask "snow-shot-mini" do
   depends_on macos: :sequoia
 
   app "Snow Shot Mini.app"
-  # Vendor installers preserve HOME and Keychain access; flight steps isolate HOME.
+  # Verify the publisher signature before Homebrew places the unchanged app.
   installer script: {
     executable:   "/bin/bash",
     args:         [staged_path.join("prepare-snow-shot-homebrew.sh"),
@@ -24,7 +24,7 @@ cask "snow-shot-mini" do
   }
 
   # Remove any prepared copy; the app artifact removes the installed app.
-  # Keep the installing account's persistent signing identity and state.
+  # Keep user data and any legacy installer state.
   uninstall script: {
     executable: "/bin/rm",
     args:       ["-rf", "--", "#{staged_path}/Snow Shot Mini.app"],
@@ -32,10 +32,10 @@ cask "snow-shot-mini" do
   }
 
   caveats <<~EOS
-    Snow Shot Mini reuses a signing identity in your login Keychain. The first install
-    may request Keychain access. Grant Screen Recording and Accessibility when
-    macOS requests them. Local signing does not provide Apple notarization.
-    Keep ~/Library/Application Support/Snow Shot Mini/Installer and its Keychain
-    identity across upgrades and reinstalls. Use the same installing account.
+    Snow Shot Mini preserves the project signature shared by DMG and script installs.
+    No local signing key or Keychain access is needed. First installation or
+    migration from older ad-hoc/local signatures may require granting Screen
+    Recording and Accessibility again. Self-signing is not Apple notarization.
+    Use installers from the current release; older scripts re-sign applications.
   EOS
 end
