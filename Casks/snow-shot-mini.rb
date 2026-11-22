@@ -1,6 +1,6 @@
 cask "snow-shot-mini" do
-  version "1.6.2"
-  sha256 "5a7036732e9241b881b23883a5424e681add51771d7e0f06ddb1c57cc3ad9ce9"
+  version "1.6.3"
+  sha256 "5d85f15846b6a6fda1dc19853bc07fd6709c75c9087de91e76a69748498fea38"
 
   url "https://github.com/mg-chao/snow-shot/releases/download/v#{version}_snow-shot/snow-shot-mini-#{version}-macos-arm64-homebrew.tar.gz"
   name "Snow Shot Mini"
@@ -25,11 +25,12 @@ cask "snow-shot-mini" do
 
   # Remove any prepared copy; the app artifact removes the installed app.
   # Keep user data and any legacy installer state.
-  uninstall script: {
-    executable: "/bin/rm",
-    args:       ["-rf", "--", "#{staged_path}/Snow Shot Mini.app"],
-    sudo:       false,
-  }
+  uninstall quit:   "com.snowshot.snow_shot_mini",
+            script: {
+              executable: "/bin/rm",
+              args:       ["-rf", "--", "#{staged_path}/Snow Shot Mini.app"],
+              sudo:       false,
+            }
 
   caveats <<~EOS
     Snow Shot Mini preserves the project signature shared by DMG and script installs.

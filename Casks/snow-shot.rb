@@ -1,9 +1,9 @@
 cask "snow-shot" do
   arch arm: "arm64", intel: "x86_64"
 
-  version "1.6.2"
-  sha256 arm:   "72f656de2738d029f3f58877379c99a2fd472e567245ff60e8493acb98c1a640",
-         intel: "7d6f72c0a9c3b2ab0c5b4f2ccb116e076e390e90ba9d45ad12b6896f1c9c5881"
+  version "1.6.3"
+  sha256 arm:   "a521debad13cbac5da1a981c1779cc07966d31fe67a407e422272b1309a6a6e2",
+         intel: "cc0239ab7d669e48d908b98e40e85a4a4109bc88f0d7e37bc4c32350ac91dcdf"
 
   url "https://github.com/mg-chao/snow-shot/releases/download/v#{version}_snow-shot/snow-shot-#{version}-macos-#{arch}-homebrew.tar.gz"
   name "Snow Shot"
@@ -26,11 +26,12 @@ cask "snow-shot" do
 
   # Remove any prepared copy; the app artifact removes the installed app.
   # Keep user data and any legacy installer state.
-  uninstall script: {
-    executable: "/bin/rm",
-    args:       ["-rf", "--", "#{staged_path}/Snow Shot.app"],
-    sudo:       false,
-  }
+  uninstall quit:   "com.snowshot.snow_shot",
+            script: {
+              executable: "/bin/rm",
+              args:       ["-rf", "--", "#{staged_path}/Snow Shot.app"],
+              sudo:       false,
+            }
 
   caveats <<~EOS
     Snow Shot preserves the project signature shared by DMG and script installs.
